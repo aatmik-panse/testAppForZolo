@@ -39,6 +39,9 @@ buildFeatures{
 
 dependencies {
 
+    implementation("com.squareup.retrofit2:retrofit:2.6.2")
+    implementation("com.squareup.retrofit:converter-gson:2.0.0-beta2")
+    implementation("com.android.volley:volley:1.2.1")
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")

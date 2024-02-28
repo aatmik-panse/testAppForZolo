@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/myBooksFragment"
-        android:name="com.example.test.fragment.MyBooksFragment"
+        android:name="com.example.test.fragment.BookInfoFragment"
         android:label="fragment_my_books"
         tools:layout="@layout/fragment_my_books" />
     <fragment
