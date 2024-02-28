@@ -3,7 +3,7 @@ package com.example.test.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.test.api.ListBookEntity
+import com.example.test.entity.ListBookEntity
 import com.example.test.databinding.BooklistBinding
 
 class BookListAdapter(private val books: MutableList<ListBookEntity>) : RecyclerView.Adapter<BookListAdapter.RowViewHolder>() {

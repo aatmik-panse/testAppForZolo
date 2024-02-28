@@ -1,4 +1,4 @@
-package com.example.test.api
+package com.example.test.entity
 
 data class ListBookEntity (
     var id: Int = 0,

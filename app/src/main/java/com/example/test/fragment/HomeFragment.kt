@@ -13,15 +13,12 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import com.example.test.R
 import com.example.test.adapter.BookListAdapter
-import com.example.test.api.ApiCall
-import com.example.test.api.ListBookEntity
+import com.example.test.entity.ListBookEntity
 import com.example.test.databinding.FragmentHomeBinding
 
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,43 +33,6 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater,container,false)
         return binding.root
     }
-
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//        // Make API call to get books
-//
-//        ApiCall().getBooks(this) { books ->
-//
-//        }
-//
-//        val author = listOf("Pradyut","Steve","Ashneer","rameshs","yogesh")
-//        val price = listOf("fnjfn","njhfvn","jkfnc","jnc","kjncj")
-//        val cover = listOf(R.drawable.image1,R.drawable.image2,R.drawable.image3,R.drawable.image2,R.drawable.image4)
-//
-//        val adapter = BookListAdapter(author,price,cover)
-//
-//
-//        binding.BookRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-//        binding.BookRecyclerView.adapter = adapter
-//    }
-//override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//    super.onViewCreated(view, savedInstanceState)
-//
-//    // Make API call to get books
-////    ApiCall().getBooks(this) { books ->
-////        val adapter = BookListAdapter(books)
-////        binding.BookRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-////        binding.BookRecyclerView.adapter = adapter
-////    }
-//    ApiCall().getBooks(this) { books ->
-//        Log.d("API_CALL", "Received ${books.size} books from API")
-//        val adapter = BookListAdapter(books)
-//        binding.BookRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-//        binding.BookRecyclerView.adapter = adapter
-//    }
-//}
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -109,6 +69,5 @@ class HomeFragment : Fragment() {
     }
 
     companion object {
-
     }
 }
