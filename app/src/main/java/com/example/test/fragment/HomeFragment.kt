@@ -15,6 +15,7 @@ import com.example.test.R
 import com.example.test.adapter.BookListAdapter
 import com.example.test.entity.ListBookEntity
 import com.example.test.databinding.FragmentHomeBinding
+import com.example.test.Constants
 
 
 class HomeFragment : Fragment() {
@@ -40,7 +41,7 @@ class HomeFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.BookRecyclerView)
 
         val queue = Volley.newRequestQueue(requireContext())
-        val url = "http://10.101.1.188:8080/v0/books?size=100"
+        val url = "${Constants.BASE_URL}/v0/books?size=10"
 
         val jsonArrayRequest = JsonArrayRequest(
             Request.Method.GET, url, null,
@@ -53,7 +54,9 @@ class HomeFragment : Fragment() {
                     val bookTitle = bookObject.getString("name")
                     val bookStatus = bookObject.getString("status")
 
-                    books.add(ListBookEntity(bookId, bookTitle, bookStatus))
+                    if(bookStatus=="AVAILABLE"){
+                    books.add(ListBookEntity(bookId, bookTitle, bookStatus)
+                )}
                 }
 
                 val adapter = BookListAdapter(books)

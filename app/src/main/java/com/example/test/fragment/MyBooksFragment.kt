@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
+
 import com.example.test.PostBooksActivity
 import com.example.test.R
 import com.example.test.R.layout.fragment_my_books
@@ -20,7 +21,7 @@ import com.example.test.adapter.MyBooksAdapter
 
 import com.example.test.databinding.FragmentMyBooksBinding
 import com.example.test.entity.MyBookEntity
-
+import com.example.test.Constants
 
 class MyBooksFragment : Fragment() {
 
@@ -46,7 +47,7 @@ class MyBooksFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.MyBooksRecyclerView)
 
         val queue = Volley.newRequestQueue(requireContext())
-        val url = "http://10.101.1.188:8080/v0/books"
+        val url = "${Constants.BASE_URL}/v0/books"
 
         val jsonArrayRequest = JsonArrayRequest(
             Request.Method.GET, url, null,
