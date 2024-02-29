@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.BookRecyclerView)
 
         val queue = Volley.newRequestQueue(requireContext())
-        val url = "http://192.168.38.207:8080/v0/books"
+        val url = "http://10.101.1.188:8080/v0/books?size=100"
 
         val jsonArrayRequest = JsonArrayRequest(
             Request.Method.GET, url, null,
@@ -51,9 +51,9 @@ class HomeFragment : Fragment() {
 
                     val bookId = bookObject.getInt("id")
                     val bookTitle = bookObject.getString("name")
-                    val bookAuthor = bookObject.getString("status")
+                    val bookStatus = bookObject.getString("status")
 
-                    books.add(ListBookEntity(bookId, bookTitle, bookAuthor))
+                    books.add(ListBookEntity(bookId, bookTitle, bookStatus))
                 }
 
                 val adapter = BookListAdapter(books)

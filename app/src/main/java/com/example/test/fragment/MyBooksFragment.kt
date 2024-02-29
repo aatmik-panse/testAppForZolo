@@ -1,33 +1,33 @@
 package com.example.test.fragment
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.Volley
+import com.example.test.PostBooksActivity
 import com.example.test.R
+import com.example.test.R.layout.fragment_my_books
+import com.example.test.adapter.MyBooksAdapter
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import com.example.test.databinding.FragmentMyBooksBinding
+import com.example.test.entity.MyBookEntity
 
-/**
- * A simple [Fragment] subclass.
- * Use the [MyBooksFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class MyBooksFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
+    private lateinit var binding: FragmentMyBooksBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
@@ -35,26 +35,55 @@ class MyBooksFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_books, container, false)
+        binding = FragmentMyBooksBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MyBooksFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MyBooksFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val recyclerView = view.findViewById<RecyclerView>(R.id.MyBooksRecyclerView)
+
+        val queue = Volley.newRequestQueue(requireContext())
+        val url = "http://10.101.1.188:8080/v0/books"
+
+        val jsonArrayRequest = JsonArrayRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                val books = mutableListOf<MyBookEntity>()
+                for (i in 0 until response.length()) {
+                    val bookObject = response.getJSONObject(i)
+
+                    val bookId = bookObject.getInt("id")
+                    val bookTitle = bookObject.getString("name")
+
+                    books.add(MyBookEntity(bookId, bookTitle))
                 }
+
+                val adapter = MyBooksAdapter(books)
+                recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                recyclerView.adapter = adapter
+            },
+            { error ->
+                Log.e("VolleyExample", "Error: $error")
             }
+        )
+
+        queue.add(jsonArrayRequest)
+
+
+
+        val openPostButton = view.findViewById<Button>(R.id.addbooksButton)
+        openPostButton.setOnClickListener{
+            val intent= Intent(activity,PostBooksActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+
+
+    companion object {
+
     }
 }

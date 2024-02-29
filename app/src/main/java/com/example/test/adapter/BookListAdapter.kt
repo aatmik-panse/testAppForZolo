@@ -29,9 +29,9 @@ class BookListAdapter(private val books: MutableList<ListBookEntity>) : Recycler
 
     class RowViewHolder(private val binding: BooklistBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: String, price: String) {
-            binding.textView4.text = item
-            binding.textView3.text = price
+        fun bind(title: String, status: String) {
+            binding.blBkTitle.text = title
+            binding.blBkStatus.text = status
         }
     }
 }
