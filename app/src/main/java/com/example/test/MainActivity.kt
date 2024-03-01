@@ -21,13 +21,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         HomeFragment()
 
         var NavController = findNavController(R.id.fragmentContainerView4)
         var bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigationView2)
         bottomNav.setupWithNavController(NavController)
-
-
 
     }
 }

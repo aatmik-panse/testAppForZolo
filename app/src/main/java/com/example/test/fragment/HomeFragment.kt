@@ -41,11 +41,13 @@ class HomeFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.BookRecyclerView)
 
         val queue = Volley.newRequestQueue(requireContext())
-        val url = "${Constants.BASE_URL}/v0/books?size=10"
+        val url = "${Constants.BASE_URL}/v0/books"
+        Log.d("API Request URL", url)
 
         val jsonArrayRequest = JsonArrayRequest(
             Request.Method.GET, url, null,
             { response ->
+                Log.d("API Response", response.toString())
                 val books = mutableListOf<ListBookEntity>()
                 for (i in 0 until response.length()) {
                     val bookObject = response.getJSONObject(i)
@@ -58,12 +60,17 @@ class HomeFragment : Fragment() {
                     books.add(ListBookEntity(bookId, bookTitle, bookStatus)
                 )}
                 }
+                Log.d("Parsed Books", "Number of books fetched: ${books.size}")
+
 
                 val adapter = BookListAdapter(books)
                 recyclerView.layoutManager = LinearLayoutManager(requireContext())
                 recyclerView.adapter = adapter
+                adapter.notifyDataSetChanged() // Ensures the adapter knows the data has changed
+
             },
             { error ->
+                Log.e("API Error", error.toString())
                 Log.e("VolleyExample", "Error: $error")
             }
         )
